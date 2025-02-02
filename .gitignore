@@ -1,0 +1,12 @@
+# Environment files
+.env
+.env.local
+.env.*
+!.env.example
+
+# Environment directory
+.env/
+.venv/
+env/
+venv/
+ENV/ 

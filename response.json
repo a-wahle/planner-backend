@@ -1,0 +1,44 @@
+{
+    "projects": [
+      {
+        "components": [
+          {
+            "assigned_weeks": 1,
+            "assignments": [
+              true,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false,
+              false
+            ],
+            "component_id": "a9f475b2-8297-4fcf-82f2-d9cf07aedc67",
+            "component_name": "Attendance Analytics Backend",
+            "contributor_id": "3d0ed038-1cb0-4506-81e6-82efadc04ac5",
+            "contributor_name": "Austin Wahle",
+            "estimated_weeks": 3,
+            "scheduled": false,
+            "skill": "Backend"
+          }
+        ],
+        "project_id": "bd347508-c8a4-435c-afa8-64bb9e200e07",
+        "project_name": "Attendance Analytics"
+      },
+      {
+        "components": [],
+        "project_id": "bac99353-faad-498d-afc3-01535aaa96f0",
+        "project_name": "Assa Abloy Stuff"
+      },
+      {
+        "components": [],
+        "project_id": "85a2e273-fe64-4c22-a1ae-eb36e31db967",
+        "project_name": "Simons Voss Integration"
+      }
+    ]
+  }
