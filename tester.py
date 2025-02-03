@@ -135,9 +135,14 @@ def delete_project(project_id):
     response = requests.delete(url)
     return response.json()
 
+def get_contributor_chart(period_id):
+    url = f'{base_url}/period/{period_id}/contributor_chart'
+    response = requests.get(url)
+    return response.json()
+
 if __name__ == '__main__':
     try:
-        result = delete_project("c01e5bc3-392d-4c3d-8adc-a08da2f333e9")
+        result = get_contributor_chart("a94c0d7d-9ede-4171-a082-fe3032b0e934")
         print(json.dumps(result, indent=2))
     except requests.exceptions.RequestException as e:
         print(f"Error making request: {e}")

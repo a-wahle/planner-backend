@@ -22,6 +22,33 @@ class Period(db.Model):
     def num_weeks(self):
         return (self.end_date - self.start_date).days // 7
     
+    def get_contributor_chart(self):
+        contributor_chart = {}
+        assignment_blobs = (db.session.query(
+            Component.name,
+            Contributor.contributor_id,
+            Contributor.first_name,
+            Contributor.last_name,
+            Assignment.week
+        )
+        .join(Project, Component.project_id == Project.project_id)
+        .join(Assignment, Component.component_id == Assignment.component_id)
+        .join(Contributor, Assignment.contributor_id == Contributor.contributor_id)
+        .filter(Project.period_id == self.period_id)
+        .order_by(Contributor.first_name, Contributor.last_name)
+        .all())
+
+        contributor_chart = {}
+        for contributor in db.session.query(Contributor).all():
+            contributor_chart[str(contributor.contributor_id)] = {
+                "assignments": [[] for _ in range(self.num_weeks)],
+                "name": contributor.first_name + " " + contributor.last_name
+            }
+        for blob in assignment_blobs:
+            contributor_chart[str(blob.contributor_id)]["assignments"][blob.week].append(blob.name)
+
+        return contributor_chart
+    
     def __repr__(self):
         return f'<Period {self.name}>'
     
@@ -69,7 +96,7 @@ class Project(db.Model):
         return {
             'project_id': self.project_id,
             'project_name': self.name,
-            'components': [component.to_response() for component in self.components]
+            'components': sorted([component.to_response() for component in self.components], key=lambda x: x['component_name'])
         }
     
 class Skill(db.Model):

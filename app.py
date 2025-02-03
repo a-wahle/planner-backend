@@ -3,6 +3,7 @@ from models import db, Period,Project,Skill,Component, Contributor, Assignment, 
 from config import Config
 from datetime import datetime
 from flask_cors import CORS
+
 def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
@@ -69,8 +70,13 @@ def create_app():
     def create_component():
         data = request.get_json()
         name = data['name']
-        description = data['description']
         project_id = data['project_id']
+        if name == "":
+            project_name = db.session.query(Project).get(project_id).name
+            skill_name = db.session.query(Skill).get(data['skill_id']).name
+            name = project_name + " " + skill_name
+        description = data['description']
+        
         skill_id = data['skill_id']
         estimated_weeks = data['estimated_weeks']
         component = Component(name=name, description=description, project_id=project_id, skill_id=skill_id, estimated_weeks=estimated_weeks)
@@ -149,7 +155,7 @@ def create_app():
     
     @app.route('/period/<period_id>/projects', methods=["GET"])
     def get_projects(period_id):
-        projects = db.session.query(Project).filter(Project.period_id == period_id).all()
+        projects = db.session.query(Project).filter(Project.period_id == period_id).order_by(Project.name).all()
 
         response = {"projects": [project.to_response() for project in projects]}
 
@@ -180,6 +186,13 @@ def create_app():
     def get_contributors_by_skill(skill_id):
         contributors = db.session.query(Contributor).join(ContributorSkill).filter(ContributorSkill.skill_id == skill_id).all()
         return jsonify({"contributors": [contributor.to_dict() for contributor in contributors]}), 200
+    
+    @app.route('/period/<period_id>/contributor_chart', methods=["GET"])
+    def get_contributor_chart(period_id):
+        period = db.session.query(Period).get(period_id)
+        contributor_chart = period.get_contributor_chart()
+        
+        return jsonify(contributor_chart), 200
     
 
     
