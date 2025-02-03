@@ -3,9 +3,12 @@ from models import db, Period,Project,Skill,Component, Contributor, Assignment, 
 from config import Config
 from datetime import datetime
 from flask_cors import CORS
-
+import os
 def create_app():
+    
     app = Flask(__name__)
+    port = int(os.environ.get("PORT", 4000))
+    app.run(host='0.0.0.0', port=port)
     app.config.from_object(Config)
 
     # Configure CORS with expanded settings
