@@ -2,7 +2,7 @@ import requests
 import json
 import pdb
 
-base_url = 'http://127.0.0.1:5000'
+base_url = 'https://planner-backend-fz01.onrender.com'
 headers = {'Content-Type': 'application/json'}
 
 def create_period():
@@ -10,7 +10,7 @@ def create_period():
     data = {
         "start_date": "2025-02-03",
         "end_date": "2025-04-28", 
-        "name": "Q2 2025"
+        "name": "Q1 2025"
     }
 
     response = requests.post(url, headers=headers, json=data)
@@ -142,7 +142,7 @@ def get_contributor_chart(period_id):
 
 if __name__ == '__main__':
     try:
-        result = get_contributor_chart("a94c0d7d-9ede-4171-a082-fe3032b0e934")
+        result = create_period()
         print(json.dumps(result, indent=2))
     except requests.exceptions.RequestException as e:
         print(f"Error making request: {e}")

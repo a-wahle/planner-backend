@@ -11,7 +11,7 @@ def create_app():
     # Configure CORS with expanded settings
     CORS(app, resources={
     r"/*": {
-        "origins": ["http://localhost:3000"],
+        "origins": ["http://localhost:3000, https://planner-web-hebc.vercel.app"],
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type"]
     }
