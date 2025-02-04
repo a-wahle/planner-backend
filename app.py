@@ -11,11 +11,7 @@ def create_app():
     # Configure CORS with expanded settings
     CORS(app, resources={
     r"/*": {
-        "origins": [
-            "http://localhost:3000",  # Note: removed comma inside string
-            "https://planner-web-hebc.vercel.app",
-            "https://planner-web-hebc-g92rmo96y-a-wahles-projects.vercel.app"  # Added new domain
-        ],
+        "origins": "*",  # Allow any origin
         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         "allow_headers": [
             "Content-Type",
