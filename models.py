@@ -21,7 +21,7 @@ class Period(db.Model):
     
     @property
     def num_weeks(self):
-        return math.ceil((self.end_date - self.start_date).days / 7)
+        return math.ceil((self.end_date - self.start_date).days / 7) + 1
     
     def get_contributor_chart(self):
         contributor_chart = {}
