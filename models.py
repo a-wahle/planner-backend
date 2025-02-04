@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
 import uuid
+import math
 db = SQLAlchemy()
 
 class Period(db.Model):
@@ -20,7 +21,7 @@ class Period(db.Model):
     
     @property
     def num_weeks(self):
-        return (self.end_date - self.start_date).days // 7
+        return math.ceil((self.end_date - self.start_date).days / 7)
     
     def get_contributor_chart(self):
         contributor_chart = {}
